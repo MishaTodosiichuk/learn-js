@@ -1,40 +1,39 @@
 <?php
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-});*/
+});
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('home');
 
-Route::redirect('/home', '/');
+Route::redirect('/home', '/')->name('home.redirect');
 
-Route::get('test', TestController::class);
+Route::get('register', [RegisterController::class, 'index'])->name('register');
 
-//CRUD (create, read, update, delete)
+Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 
-Route::get('posts', [PostController::class, 'index'])->name('posts');
+Route::get('login', [LoginController::class, 'index'])->name('login');
 
-Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('login', [LoginController::class, 'store'])->name('login.store');
 
-Route::post('posts/create', [PostController::class, 'store'])->name('posts.store');
+Route::get('login/{user}/confirmation', [LoginController::class, 'confirmation'])->name('login.confirmation');
 
-Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::post('login/{user}/confirm', [LoginController::class, 'confirm'])->name('login.confirm');
 
-Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::get('blog', [BlogController::class, 'index'])->name('blog');
 
-Route::put('posts/{post}', [PostController::class, 'update'])->name('posts.update');
+Route::get('blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 
-Route::delete('posts/{post}/destroy', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::post('blog/{post}/like', [BlogController::class, 'like'])->name('blog.like');
 
-Route::put('posts/{post}', [PostController::class, 'like'])->name('posts.like');
-
-
-
+Route::get('test', TestController::class)->name('test');
 
 //В самому низу
 
