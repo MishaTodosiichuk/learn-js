@@ -14,6 +14,13 @@ Route::redirect('/home', '/');
 
 Route::get('test', TestController::class);
 
+//CRUD (create, read, update, delete)
+
+
+
+
+
+
 //В самому низу
 
 /*Route::fallback(function (){
