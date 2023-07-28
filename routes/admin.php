@@ -4,9 +4,12 @@ use App\Http\Controllers\Posts\CommentController;
 use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->as('admin.')->group(function (){
+Route::middleware(['auth', 'active', 'admin'])->prefix('admin')->as('admin.')->group(function () {
 
-    Route::resource('posts',PostController::class);
+    Route::redirect('/', 'admin/posts')->name('admin');
+
+
+    Route::resource('posts', PostController::class);
 
     Route::put('posts/{post}', [PostController::class, 'like'])->name('posts.like');
 
